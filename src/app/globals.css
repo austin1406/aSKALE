@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/*
+ * Brand tokens. Client sites change these values (and site.config.ts), not components.
+ * One ink, one paper, one accent used sparingly.
+ */
+:root {
+  /* Warm paper, dark coffee ink, terracotta accent, sage secondary. */
+  --background: #f7f1e6;
+  --foreground: #241c15;
+  --card: #fffbf4;
+  --card-foreground: #241c15;
+  --primary: #241c15;
+  --primary-foreground: #f7f1e6;
+  --accent: #b9532a;
+  --accent-foreground: #fffbf4;
+  --accent-soft: #f6e2d4;
+  --sage: #61704f;
+  --muted: #efe6d6;
+  --muted-foreground: #6b5f52;
+  --border: #e3d7c3;
+  --input: #d6c8b0;
+  --ring: #b9532a;
+  --success: #4f7a3a;
+  --destructive: #a8321f;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-sage: var(--sage);
+  --color-destructive: var(--destructive);
+  --font-sans: var(--font-instrument);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces);
+  --font-hand: var(--font-caveat);
+
+  --shadow-soft: 0 1px 2px rgb(60 40 20 / 0.05), 0 10px 28px -14px rgb(60 40 20 / 0.18);
+  --shadow-float: 0 1px 2px rgb(60 40 20 / 0.07), 0 28px 56px -24px rgb(60 40 20 / 0.35);
+
+  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* Faint paper grain. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.25 0 0 0 0 0.15 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Fine grid used behind the hero only. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(60 40 20 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(60 40 20 / 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Display type: Fraunces with its soft, slightly wonky shapes. */
+.font-display {
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  letter-spacing: -0.025em;
+}
+
+/*
+ * The ruler: Askale's signature motif ("Ask · Scale").
+ * Minor tick every 12px, major tick every 60px.
+ */
+.ruler {
+  background-image:
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(to right, currentColor 0 1px, transparent 1px 12px);
+  background-size: 100% 100%, 100% 45%;
+  background-position: left bottom, left bottom;
+  background-repeat: no-repeat;
+}
