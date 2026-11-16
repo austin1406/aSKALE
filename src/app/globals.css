@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+/* Brand tokens. Change colors here, not in components. */
+:root {
+  --background: #faf8f4;
+  --foreground: #16191d;
+  --card: #ffffff;
+  --card-foreground: #16191d;
+  --primary: #16191d;
+  --primary-foreground: #faf8f4;
+  --accent: #c2410c;
+  --accent-foreground: #ffffff;
+  --accent-soft: #fdeee4;
+  --muted: #f0ece4;
+  --muted-foreground: #5c6168;
+  --border: #e4ded3;
+  --input: #d9d2c5;
+  --ring: #c2410c;
+  --destructive: #b42318;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+html {
+  scroll-behavior: smooth;
+}
