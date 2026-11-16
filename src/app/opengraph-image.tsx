@@ -23,13 +23,25 @@ export default function OpengraphImage() {
           padding: "72px 80px 56px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 10 }}>
-          <div style={{ width: 22, height: 34, background: "#f7f1e6", opacity: 0.35, borderRadius: 4 }} />
-          <div style={{ width: 22, height: 54, background: "#f7f1e6", opacity: 0.7, borderRadius: 4 }} />
-          <div style={{ width: 22, height: 78, background: "#b9532a", borderRadius: 4 }} />
-          <div style={{ fontSize: 64, fontWeight: 700, marginLeft: 18, letterSpacing: -2 }}>
-            {site.name.toLowerCase()}
+        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+          {/* Ruler A mark */}
+          <div
+            style={{
+              width: 96,
+              height: 96,
+              borderRadius: 24,
+              background: "#f7f1e6",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <svg width="72" height="72" viewBox="0 0 120 120">
+              <path d="M60 16 L96 104 H79 L60 54 L41 104 H24 Z" fill="#241c15" />
+              <rect x="30" y="68" width="60" height="13" rx="2.5" fill="#b9532a" />
+            </svg>
           </div>
+          <div style={{ fontSize: 72, fontWeight: 700, letterSpacing: -3 }}>{site.name.toLowerCase()}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: -3, lineHeight: 1.02 }}>
