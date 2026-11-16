@@ -12,10 +12,8 @@ export default function ContactPage() {
   return (
     <section className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1fr_1.2fr] md:py-24">
       <div>
-        <p className="font-mono text-xs text-muted-foreground">
-          <span className="text-accent">●</span> Contact
-        </p>
-        <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-[3.25rem] sm:leading-[1.02]">
+        <p className="font-hand text-2xl leading-none text-accent">Say hello</p>
+        <h1 className="font-display mt-4 text-[2.6rem] leading-[1] font-medium text-balance sm:text-6xl">
           Book a free 30-minute audit
         </h1>
         <p className="mt-5 text-lg text-muted-foreground text-pretty">

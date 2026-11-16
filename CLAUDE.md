@@ -10,6 +10,11 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 - All business info (name, prices, contact, booking link, service area) lives in `src/site.config.ts`. Read it first; never hardcode it elsewhere.
 - Favor simple, fast, maintainable pages. Local SEO matters: real business details, LocalBusiness schema, fast mobile load.
 
+## Brand (Askale's own site)
+- Direction: **local and warm** (chosen by Austin 2026-11-15). Paper/coffee/terracotta palette, Fraunces serif headlines, Instrument Sans body, Caveat for handwritten notes, Geist Mono only for small data labels.
+- Concept: the name reads "Ask · Scale". Use the ruler strip and the "Ask … then scale" idea sparingly; never the old cold/techy look.
+- Client sites reuse the components but get their own tokens in `globals.css` and fonts in `layout.tsx`.
+
 ## Stack
 - Next.js 16 (App Router, `cacheComponents` on) + TypeScript (strict) + Tailwind CSS v4 + shadcn/ui
 - Next 16 renamed `middleware.ts` to `proxy.ts`. Check `node_modules/next/dist/docs/` before using an API you remember from older versions.

@@ -8,6 +8,7 @@ export const site = {
   shortName: "Askale",
   url: "https://example.com", // TODO: real domain once bought on Porkbun
   tagline: "Websites and simple automations for local businesses",
+  motto: "Ask. Then scale.",
   description:
     "Fast, mobile-friendly websites and time-saving automations for local businesses in Richardson and Irving, TX. Fixed prices, no long contracts.",
   owner: "Austin",

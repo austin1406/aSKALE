@@ -33,10 +33,10 @@ export function SectionHeader({
   return (
     <div className={cn("grid gap-6 md:grid-cols-[1fr_1fr] md:items-end", className)}>
       <div>
-        <p className="font-mono text-xs text-muted-foreground">
-          <span className="text-accent">{index}</span> · {label}
+        <p className="font-hand text-2xl leading-none text-accent" data-index={index}>
+          {label}
         </p>
-        <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] text-balance sm:text-[2.75rem] sm:leading-[1.05]">
+        <h2 className="font-display mt-3 text-[2.1rem] leading-[1.05] font-medium text-balance sm:text-5xl">
           {title}
         </h2>
       </div>

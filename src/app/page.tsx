@@ -3,28 +3,35 @@ import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 
 import { HeroVisual } from "@/components/marketing/hero-visual";
 import { Section, SectionHeader } from "@/components/marketing/section";
+import { ServiceAreaMap } from "@/components/marketing/service-area-map";
 import { ServiceCards } from "@/components/marketing/service-cards";
+import { HandNote, Scribble } from "@/components/hand";
+import { Ruler } from "@/components/ruler";
 import { Button } from "@/components/ui/button";
 import { cn, usd } from "@/lib/utils";
 import { site } from "@/site.config";
 
 const steps = [
   {
+    mark: "Ask",
     when: "Day 0",
     title: "Free audit call",
     body: "30 minutes on how customers find you and what eats your week. You leave with a list of quick wins.",
   },
   {
+    mark: "Plan",
     when: "Day 1",
     title: "One-page proposal",
     body: "What I'll build, what changes for you, a fixed price and a date. No hourly billing.",
   },
   {
+    mark: "Build",
     when: "Week 1–2",
     title: "Build and review",
     body: "A live preview link you can click through, with two rounds of changes before anything goes live.",
   },
   {
+    mark: "Scale",
     when: "Ongoing",
     title: "Launch and look after it",
     body: "Your domain connected, a short walkthrough video, then monthly updates, monitoring and small changes.",
@@ -62,8 +69,7 @@ export default function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="bg-grid pointer-events-none absolute inset-0" />
+      <section className="relative overflow-hidden pb-10">
         <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-4 pt-14 pb-20 sm:px-6 md:pt-20 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pb-28">
           <div className="animate-rise">
             <Link
@@ -77,13 +83,18 @@ export default function Home() {
               Taking new clients · websites from {usd(site.pricing[0].setup)}
               <ArrowRight className="size-3" />
             </Link>
-            <h1 className="mt-6 text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.045em] text-balance sm:text-6xl lg:text-[4.25rem]">
-              Your business, running smoother online.
+            <h1 className="font-display mt-7 text-[2.9rem] leading-[1] font-medium sm:text-[4.2rem] lg:text-[4.6rem]">
+              <span className="block text-balance">Ask what&apos;s slowing you down.</span>
+              <span className="relative mt-1 inline-block italic text-accent">
+                Then scale.
+                <Scribble className="absolute -bottom-3 left-0" />
+              </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted-foreground text-pretty">
-              {site.name} builds fast websites and simple automations for local businesses in{" "}
-              {site.areaServed.slice(0, 2).join(" and ").replaceAll(", TX", "")}, so more calls turn
-              into booked jobs and less of your week goes to admin.
+              I&apos;m {site.owner}, and {site.name} is how I help local businesses in{" "}
+              {site.areaServed.slice(0, 2).join(" and ").replaceAll(", TX", "")} get more calls,
+              more bookings and fewer hours lost to admin, with fast websites and simple
+              automations at fixed prices.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button asChild size="lg">
@@ -111,10 +122,17 @@ export default function Home() {
           </div>
           <div className="animate-rise [animation-delay:120ms]">
             <HeroVisual />
-            <p className="mt-2 text-center font-mono text-[11px] text-muted-foreground">
-              Example setup for a fictional client
-            </p>
+            <div className="mt-1 flex justify-center sm:justify-start sm:pl-10">
+              <HandNote arrow="left" className="-rotate-2">what your customers see (example shop)</HandNote>
+            </div>
           </div>
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="flex items-end justify-between font-hand text-xl leading-none">
+            <span className="text-muted-foreground">ask</span>
+            <span className="text-accent">then scale →</span>
+          </div>
+          <Ruler className="mt-2 text-foreground/20" />
         </div>
       </section>
 
@@ -136,19 +154,25 @@ export default function Home() {
         <SectionHeader
           index="02"
           label="Process"
-          title="From first call to live in about two weeks."
+          title={<>Ask on day 0. Live in about two weeks.</>}
           body="No long discovery phase or jargon. You always know what's next and what it costs."
         />
-        <ol className="relative mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-4">
+        <ol className="mt-16 grid gap-10 md:grid-cols-4 md:gap-0">
           {steps.map((step, i) => (
-            <li key={step.title} className="bg-card p-6">
-              <div className="flex items-center justify-between font-mono text-xs">
-                <span className="text-muted-foreground">{step.when}</span>
-                <span className="flex size-6 items-center justify-center rounded-full border border-border text-[11px]">
-                  {i + 1}
-                </span>
+            <li key={step.title} className="relative md:pr-8">
+              <div className="flex h-20 items-end gap-3">
+                <span
+                  className={cn(
+                    "w-1 rounded-full",
+                    i === steps.length - 1 ? "bg-accent" : "bg-foreground",
+                  )}
+                  style={{ height: `${28 + i * 14}px` }}
+                />
+                <span className="font-display text-4xl font-medium italic leading-none">{step.mark}</span>
               </div>
-              <h3 className="mt-8 font-semibold tracking-tight">{step.title}</h3>
+              <Ruler className="mt-3 text-foreground/20" />
+              <p className="mt-5 font-mono text-xs text-muted-foreground">{step.when}</p>
+              <h3 className="mt-1.5 font-semibold tracking-tight">{step.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground text-pretty">{step.body}</p>
             </li>
           ))}
@@ -188,7 +212,7 @@ export default function Home() {
                   {plan.blurb}
                 </p>
                 <div className="mt-8 flex items-end gap-3">
-                  <p className="text-5xl font-semibold tracking-[-0.04em] tabular-nums">{usd(plan.setup)}</p>
+                  <p className="font-display text-6xl font-medium tabular-nums">{usd(plan.setup)}</p>
                   <p className={cn("pb-1.5 text-sm", featured ? "text-background/65" : "text-muted-foreground")}>
                     setup
                     <br />+ {usd(plan.monthly)}/mo
@@ -224,23 +248,51 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Service area */}
+      <Section id="area">
+        <div className="grid items-center gap-12 md:grid-cols-[1fr_1.15fr]">
+          <div>
+            <p className="font-hand text-2xl leading-none text-accent">Where I work</p>
+            <h2 className="font-display mt-3 text-[2.1rem] leading-[1.05] font-medium text-balance sm:text-5xl">
+              Local, and happy to stop by.
+            </h2>
+            <p className="mt-5 max-w-md text-muted-foreground text-pretty">
+              Based between Richardson and Irving, working with businesses across north Dallas:
+              Plano, Addison, Carrollton, Las Colinas, Garland and Dallas. We can meet at your shop,
+              or do everything over a call.
+            </p>
+            <ul className="mt-8 space-y-3 text-sm">
+              {["Free audit, on a call or in person", "Replies within one business day", "Text me for small changes"].map(
+                (item) => (
+                  <li key={item} className="flex items-center gap-3">
+                    <Check className="size-4 text-accent" />
+                    {item}
+                  </li>
+                ),
+              )}
+            </ul>
+          </div>
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-soft)] sm:p-6">
+            <ServiceAreaMap />
+          </div>
+        </div>
+      </Section>
+
       {/* About */}
       <Section id="about" className="bg-card">
-        <div className="grid gap-10 md:grid-cols-[auto_1fr] md:gap-16">
-          <div className="flex items-start gap-4 md:flex-col">
-            <div className="flex size-20 items-center justify-center rounded-2xl bg-foreground text-2xl font-semibold tracking-tight text-background">
+        <div className="grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-20">
+          <figure className="mx-auto w-56 -rotate-2 rounded-sm bg-card p-3 pb-4 shadow-[var(--shadow-float)] md:mx-0">
+            {/* Swap for a real photo: put it in /public and use next/image here. */}
+            <div className="font-display flex aspect-[4/5] items-center justify-center rounded-[2px] bg-gradient-to-br from-accent-soft via-muted to-[#e4dccb] text-7xl font-medium italic text-accent/80">
               {site.owner.slice(0, 1)}
             </div>
-            <div>
-              <p className="font-semibold tracking-tight">{site.owner}</p>
-              <p className="text-sm text-muted-foreground">Founder, {site.name}</p>
-            </div>
-          </div>
+            <figcaption className="mt-3 text-center font-hand text-2xl leading-none">
+              {site.owner} · Richardson, TX
+            </figcaption>
+          </figure>
           <div className="max-w-2xl">
-            <p className="font-mono text-xs text-muted-foreground">
-              <span className="text-accent">04</span> · About
-            </p>
-            <p className="mt-4 text-2xl leading-snug font-medium tracking-[-0.02em] text-balance sm:text-[1.75rem]">
+            <p className="font-hand text-2xl leading-none text-accent">About</p>
+            <p className="font-display mt-3 text-[1.75rem] leading-[1.2] text-balance sm:text-4xl">
               I&apos;m a computer science student building real software for the shops, salons,
               clinics and contractors around Richardson and Irving.
             </p>
@@ -250,6 +302,7 @@ export default function Home() {
               companies use. I get a project I&apos;m proud to show. If it works for you, I&apos;ll
               ask for a review.
             </p>
+            <p className="mt-6 font-hand text-3xl text-accent">– {site.owner}</p>
           </div>
         </div>
       </Section>
@@ -258,10 +311,8 @@ export default function Home() {
       <Section id="faq">
         <div className="grid gap-12 md:grid-cols-[1fr_1.4fr]">
           <div>
-            <p className="font-mono text-xs text-muted-foreground">
-              <span className="text-accent">05</span> · FAQ
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-[-0.03em] sm:text-[2.75rem] sm:leading-[1.05]">
+            <p className="font-hand text-2xl leading-none text-accent">FAQ</p>
+            <h2 className="font-display mt-3 text-[2.1rem] leading-[1.05] font-medium sm:text-5xl">
               Questions, answered.
             </h2>
             <p className="mt-4 text-muted-foreground">
@@ -292,12 +343,11 @@ export default function Home() {
       {/* Closing CTA */}
       <section className="px-4 pb-20 sm:px-6">
         <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl bg-foreground px-6 py-14 text-background sm:px-12 sm:py-16">
-          <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full border border-background/10" />
-          <div className="pointer-events-none absolute -top-10 -right-10 size-40 rounded-full border border-background/10" />
+          <Ruler className="absolute inset-x-0 bottom-0 h-4 text-background/20" />
           <div className="relative grid gap-8 md:grid-cols-[1.4fr_auto] md:items-end">
             <div>
-              <h2 className="text-3xl font-semibold tracking-[-0.035em] text-balance sm:text-5xl">
-                Not sure where to start?
+              <h2 className="font-display text-4xl leading-[1.02] font-medium text-balance sm:text-6xl">
+                Not sure where to start? Ask.
               </h2>
               <p className="mt-4 max-w-lg text-background/65">
                 Book a free 30-minute audit. You&apos;ll get a short list of quick wins for your
