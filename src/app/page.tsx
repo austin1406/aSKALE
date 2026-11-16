@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
 
+import { LogoMark } from "@/components/logo";
 import { HeroVisual } from "@/components/marketing/hero-visual";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { ServiceAreaMap } from "@/components/marketing/service-area-map";
@@ -282,9 +283,8 @@ export default function Home() {
       <Section id="about" className="bg-card">
         <div className="grid items-center gap-12 md:grid-cols-[auto_1fr] md:gap-20">
           <figure className="mx-auto w-56 -rotate-2 rounded-sm bg-card p-3 pb-4 shadow-[var(--shadow-float)] md:mx-0">
-            {/* Swap for a real photo: put it in /public and use next/image here. */}
-            <div className="font-display flex aspect-[4/5] items-center justify-center rounded-[2px] bg-gradient-to-br from-accent-soft via-muted to-[#e4dccb] text-7xl font-medium italic text-accent/80">
-              {site.owner.slice(0, 1)}
+            <div className="flex aspect-[4/5] items-center justify-center rounded-[2px] bg-gradient-to-br from-accent-soft via-muted to-[#e4dccb]">
+              <LogoMark className="size-28" />
             </div>
             <figcaption className="mt-3 text-center font-hand text-2xl leading-none">
               {site.owner} · Richardson, TX
