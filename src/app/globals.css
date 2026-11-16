@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
-/* Brand tokens. Change colors here, not in components. */
+/*
+ * Brand tokens. Client sites change these values (and site.config.ts), not components.
+ * One ink, one paper, one accent used sparingly.
+ */
 :root {
-  --background: #faf8f4;
-  --foreground: #16191d;
+  --background: #fafaf9;
+  --foreground: #0c0d0e;
   --card: #ffffff;
-  --card-foreground: #16191d;
-  --primary: #16191d;
-  --primary-foreground: #faf8f4;
-  --accent: #c2410c;
+  --card-foreground: #0c0d0e;
+  --primary: #0c0d0e;
+  --primary-foreground: #fafaf9;
+  --accent: #e5531a;
   --accent-foreground: #ffffff;
-  --accent-soft: #fdeee4;
-  --muted: #f0ece4;
-  --muted-foreground: #5c6168;
-  --border: #e4ded3;
-  --input: #d9d2c5;
-  --ring: #c2410c;
+  --accent-soft: #fff1ea;
+  --muted: #f3f2ef;
+  --muted-foreground: #5f6368;
+  --border: #e7e5e1;
+  --input: #dad7d1;
+  --ring: #0c0d0e;
+  --success: #12805c;
   --destructive: #b42318;
   color-scheme: light;
 }
@@ -35,17 +39,49 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-success: var(--success);
   --color-destructive: var(--destructive);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-display);
+
+  --shadow-soft: 0 1px 2px rgb(12 13 14 / 0.04), 0 8px 24px -12px rgb(12 13 14 / 0.12);
+  --shadow-float: 0 1px 2px rgb(12 13 14 / 0.06), 0 24px 48px -20px rgb(12 13 14 / 0.28);
+
+  --animate-rise: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-feature-settings: "ss01", "cv11";
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+/* Fine grid used behind the hero only. */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(12 13 14 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(12 13 14 / 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 40%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

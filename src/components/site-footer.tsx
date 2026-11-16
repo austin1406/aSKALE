@@ -1,27 +1,44 @@
 import Link from "next/link";
 
+import { Logo } from "@/components/logo";
 import { site } from "@/site.config";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-10 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
-        <div>
-          <p className="font-display text-base font-semibold text-foreground">{site.name}</p>
-          <p>Serving {site.areaServed.slice(0, 2).join(" and ")}.</p>
+    <footer className="border-t border-border bg-card">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr]">
+        <div className="max-w-xs">
+          <Logo />
+          <p className="mt-4 text-sm text-muted-foreground">{site.description}</p>
         </div>
-        <div className="flex flex-wrap gap-x-6 gap-y-2">
-          <a href={`mailto:${site.email}`} className="hover:text-foreground">
-            {site.email}
-          </a>
-          <Link href="/contact" className="hover:text-foreground">
-            Contact
-          </Link>
-          <Link href="/privacy" className="hover:text-foreground">
-            Privacy
-          </Link>
-        </div>
+        <FooterCol title="Site">
+          <Link href="/#services">Services</Link>
+          <Link href="/#pricing">Pricing</Link>
+          <Link href="/#faq">FAQ</Link>
+          <Link href="/privacy">Privacy</Link>
+        </FooterCol>
+        <FooterCol title="Contact">
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <Link href={site.bookingUrl}>Book a free audit</Link>
+          <span>{site.areaServed.slice(0, 2).join(" · ")}</span>
+        </FooterCol>
+      </div>
+      <div className="border-t border-border">
+        <p className="mx-auto max-w-6xl px-4 py-5 font-mono text-xs text-muted-foreground sm:px-6">
+          {site.name} · Built in Texas
+        </p>
       </div>
     </footer>
+  );
+}
+
+function FooterCol({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <p className="text-sm font-medium">{title}</p>
+      <div className="mt-3 flex flex-col gap-2.5 text-sm text-muted-foreground [&_a:hover]:text-foreground">
+        {children}
+      </div>
+    </div>
   );
 }

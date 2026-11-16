@@ -12,8 +12,10 @@ export default function ContactPage() {
   return (
     <section className="mx-auto grid max-w-6xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1fr_1.2fr] md:py-24">
       <div>
-        <p className="text-sm font-medium uppercase tracking-widest text-accent">Contact</p>
-        <h1 className="mt-3 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+        <p className="font-mono text-xs text-muted-foreground">
+          <span className="text-accent">●</span> Contact
+        </p>
+        <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] text-balance sm:text-[3.25rem] sm:leading-[1.02]">
           Book a free 30-minute audit
         </h1>
         <p className="mt-5 text-lg text-muted-foreground text-pretty">
@@ -40,7 +42,7 @@ export default function ContactPage() {
 
       {/* The contact form (Zod + Turnstile + rate limit + Supabase + Resend) and the
           Cal.com booking embed land here in the next pull requests. */}
-      <div className="rounded-2xl border border-dashed border-input bg-card p-8 text-muted-foreground">
+      <div className="rounded-2xl border border-border bg-card p-8 text-muted-foreground shadow-[var(--shadow-soft)]">
         <p className="font-medium text-foreground">Contact form and booking calendar coming next.</p>
         <p className="mt-2">
           For now, email{" "}
