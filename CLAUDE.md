@@ -25,7 +25,7 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 - `npm run dev`: local dev server
 - `npm run build`: production build (must pass before a PR)
 - `npm run lint`: lint
-- `npx tsc --noEmit`: type check
+- `npm run typecheck`: generate route types, then type check (CI runs lint, typecheck, build and a gitleaks secret scan on every PR)
 
 ## Project layout
 - `src/app/`: routes (server components by default; add `"use client"` only when needed)
