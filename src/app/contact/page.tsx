@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Clock } from "lucide-react";
 
+import { CalEmbed } from "@/components/cal-embed";
+import { ContactForm } from "@/components/contact-form";
 import { site } from "@/site.config";
 
 export const metadata: Metadata = {
@@ -38,17 +40,14 @@ export default function ContactPage() {
         </ul>
       </div>
 
-      {/* The contact form (Zod + Turnstile + rate limit + Supabase + Resend) and the
-          Cal.com booking embed land here in the next pull requests. */}
-      <div className="rounded-2xl border border-border bg-card p-8 text-muted-foreground shadow-[var(--shadow-soft)]">
-        <p className="font-medium text-foreground">Contact form and booking calendar coming next.</p>
-        <p className="mt-2">
-          For now, email{" "}
-          <a href={`mailto:${site.email}`} className="text-accent underline underline-offset-4">
-            {site.email}
-          </a>{" "}
-          and I&apos;ll get back to you.
-        </p>
+      <div id="book" className="scroll-mt-24 space-y-6">
+        <ContactForm />
+        {site.calLink && (
+          <div>
+            <p className="mb-3 font-hand text-2xl text-accent">or pick a time yourself</p>
+            <CalEmbed />
+          </div>
+        )}
       </div>
     </section>
   );

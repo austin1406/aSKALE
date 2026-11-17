@@ -13,7 +13,8 @@ export const site = {
     "Fast, mobile-friendly websites and time-saving automations for local businesses in Richardson and Irving, TX. Fixed prices, no long contracts.",
   owner: "Austin",
   email: "hello@example.com", // TODO: real inbox (Porkbun email forwarding)
-  bookingUrl: "/contact", // TODO: Cal.com link for 30-minute audit calls
+  bookingUrl: "/contact#book",
+  calLink: "", // Cal.com username/event, e.g. "askale/audit". Empty hides the calendar.
   areaServed: ["Richardson, TX", "Irving, TX", "Dallas–Fort Worth"],
   pricing: [
     {

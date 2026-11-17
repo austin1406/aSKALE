@@ -31,7 +31,11 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 - `src/app/`: routes (server components by default; add `"use client"` only when needed)
 - `src/components/ui/`: shadcn components (ours to edit)
 - `src/components/`: site components
-- `src/lib/`: helpers
+- `src/lib/`: helpers (`supabase/admin.ts` is server-only, `rate-limit.ts`, `turnstile.ts`, `contact-schema.ts`)
+- `src/inngest/`: background job client and functions, served at `/api/inngest`
+- `src/emails/`: email templates
+- `supabase/migrations/`: all schema changes, as SQL migrations
+- `docs/`: setup guides (start with `docs/setup-contact-form.md`)
 - `src/site.config.ts`: all brand and business content
 - `src/app/globals.css`: brand color tokens (change colors there, not in components)
 
