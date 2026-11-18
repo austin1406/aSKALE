@@ -32,4 +32,9 @@ create policy "Admins can update leads"
   using ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin')
   with check ((auth.jwt() -> 'app_metadata' ->> 'role') = 'admin');
 
+-- Table privileges, set explicitly so this works even when the Supabase project
+-- does not grant API access to new tables automatically.
+-- RLS still decides which rows a role can touch; these only allow the API to try.
 revoke all on public.leads from anon;
+grant select, update on public.leads to authenticated;
+grant select, insert, update, delete on public.leads to service_role;
