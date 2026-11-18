@@ -6,13 +6,13 @@
 export const site = {
   name: "Askale",
   shortName: "Askale",
-  url: "https://example.com", // TODO: real domain once bought on Porkbun
+  url: "https://askale.app",
   tagline: "Websites and simple automations for local businesses",
   motto: "Ask. Then scale.",
   description:
     "Fast, mobile-friendly websites and time-saving automations for local businesses in Richardson and Irving, TX. Fixed prices, no long contracts.",
   owner: "Austin",
-  email: "hello@example.com", // TODO: real inbox (Porkbun email forwarding)
+  email: "hello@askale.app", // forwarded to Austin's inbox via Porkbun email forwarding
   bookingUrl: "/contact#book",
   calLink: "", // Cal.com username/event, e.g. "askale/audit". Empty hides the calendar.
   areaServed: ["Richardson, TX", "Irving, TX", "Dallas–Fort Worth"],
