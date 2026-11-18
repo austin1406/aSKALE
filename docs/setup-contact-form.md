@@ -15,7 +15,7 @@ The form works locally with no keys: it validates input and shows the thank-you 
 
 ## 2. Resend (emails)
 1. Create an account at resend.com and an API key → `RESEND_API_KEY`.
-2. Until your domain is verified, use `CONTACT_FROM_EMAIL="Askale <onboarding@resend.dev>"`. Note that this test sender can only deliver to your own Resend account email. After you buy the domain, verify it in Resend (see `setup/custom-domain-porkbun.md`) and switch to `hello@yourdomain.com`.
+2. Until your domain is verified, use `CONTACT_FROM_EMAIL="Askale <onboarding@resend.dev>"`. Note that this test sender can only deliver to your own Resend account email. After you buy the domain, verify it in Resend (see `setup/custom-domain-porkbun.md`) and switch to `hello@askale.app`.
 3. `CONTACT_TO_EMAIL` = the inbox where you want new leads.
 
 ## 3. Upstash (rate limiting)
