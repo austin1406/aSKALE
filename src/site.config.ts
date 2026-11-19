@@ -14,7 +14,7 @@ export const site = {
   owner: "Austin",
   email: "hello@askale.app", // forwarded to Austin's inbox via Porkbun email forwarding
   bookingUrl: "/contact#book",
-  calLink: "", // Cal.com username/event, e.g. "askale/audit". Empty hides the calendar.
+  calLink: "askale/free-30-minute-audit", // Cal.com username/event. Empty hides the calendar.
   areaServed: ["Richardson, TX", "Irving, TX", "Dallas–Fort Worth"],
   pricing: [
     {
