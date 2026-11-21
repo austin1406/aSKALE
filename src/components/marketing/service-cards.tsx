@@ -1,9 +1,13 @@
-import { Bot, CalendarCheck, Gauge, MessageSquare, Star, Workflow } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Bot, CalendarCheck, Gauge, MessageSquare, Star, Workflow } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-/** Bento grid of services. Each card carries a small, real-looking UI preview. */
-export function ServiceCards() {
+/**
+ * Bento grid of services. Each card carries a small, real-looking UI preview.
+ * `variant="compact"` (the home page teaser) shows the first two cards and a link to /services.
+ */
+export function ServiceCards({ variant = "full" }: { variant?: "full" | "compact" }) {
   return (
     <div className="grid gap-4 md:grid-cols-6">
       <Card className="md:col-span-4" icon={Gauge} title="A website that earns its keep" body="Fast, mobile-first, and clear about what you do, where, and how to reach you. Set up so Google can find you locally.">
@@ -37,6 +41,17 @@ export function ServiceCards() {
         </div>
       </Card>
 
+      {variant === "compact" ? (
+        <div className="flex items-center pt-2 md:col-span-6 md:mt-4 md:border-t md:border-border md:pt-6">
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-1.5 rounded-full text-sm font-medium text-foreground underline underline-offset-4 hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
+            See all services, including automations <ArrowRight className="size-3.5" />
+          </Link>
+        </div>
+      ) : (
+        <>
       <Card className="md:col-span-2" icon={MessageSquare} title="Missed-call text-back" body="Miss a call on a job? The caller gets a text in seconds, not a voicemail.">
         <div className="mt-6 space-y-1.5 text-[12px]">
           <p className="w-fit max-w-[85%] rounded-xl rounded-tl-sm bg-muted px-3 py-2">Hi! Sorry we missed you. How can we help?</p>
@@ -75,6 +90,8 @@ export function ServiceCards() {
           ))}
         </div>
       </Card>
+        </>
+      )}
     </div>
   );
 }
