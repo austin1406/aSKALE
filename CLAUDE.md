@@ -19,6 +19,7 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 - Next.js 16 (App Router, `cacheComponents` on) + TypeScript (strict) + Tailwind CSS v4 + shadcn/ui
 - Next 16 renamed `middleware.ts` to `proxy.ts`. Check `node_modules/next/dist/docs/` before using an API you remember from older versions.
 - Supabase (Postgres, Auth, RLS), Resend for email, Cal.com for booking, Upstash for rate limiting and cache, Inngest for background jobs, Sentry for errors, Better Stack for uptime
+- Stripe for Askale's own client billing, run from the Stripe dashboard (invoices + care-plan payment links, ACH preferred); no checkout code in the site. See `docs/setup-stripe-payments.md`
 - Hosted on Vercel; domain + DNS on Porkbun
 
 ## Commands
@@ -35,7 +36,7 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 - `src/inngest/`: background job client and functions, served at `/api/inngest`
 - `src/emails/`: email templates
 - `supabase/migrations/`: all schema changes, as SQL migrations
-- `docs/`: setup guides (start with `docs/setup-contact-form.md`)
+- `docs/`: setup guides (start with `docs/setup-contact-form.md`; billing in `docs/setup-stripe-payments.md`)
 - `src/site.config.ts`: all brand and business content
 - `src/app/globals.css`: brand color tokens (change colors there, not in components)
 
