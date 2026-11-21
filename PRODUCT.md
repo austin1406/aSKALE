@@ -22,7 +22,7 @@ Fixed, low, flat pricing (setup + small monthly fee) with no long contracts, don
 
 ## Operating Context
 
-- Marketing site today has two live routes: home (`/`) and `/contact` (with Cal.com booking calendar embedded), plus `/privacy`.
+- Marketing site today has dedicated routes: home (`/`, condensed teasers linking out), `/services`, `/pricing`, `/process`, `/about`, `/faq`, `/contact` (with Cal.com booking calendar embedded), and `/privacy`.
 - Client acquisition funnel: visitor → books free 30-minute audit call via Cal.com (`askale/free-30-minute-audit`) → fixed-price one-page proposal → 1–2 week build with a clickable preview link and two rounds of revisions → launch with a walkthrough video → ongoing monthly hosting/monitoring/small-changes retainer.
 - Client-facing automations referenced in pricing (booking with reminders, missed-call text-back, review requests, AI FAQ chat, monthly lead/booking/review report) are sold as add-ons in the "Website + automations" tier; some are not yet built in this repo and are near-term scope, not aspirational marketing claims.
 - This codebase doubles as the agency's starter template — any pattern built here is expected to be reused, nearly as-is, for future client sites, with brand/content swapped via config and tokens.

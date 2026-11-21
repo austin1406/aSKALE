@@ -55,8 +55,8 @@ export function SiteHeader() {
             <Link href={site.bookingUrl}>Book a free audit</Link>
           </Button>
 
-          {/* Mobile menu: native <details>, no client JS needed for the disclosure itself. */}
-          <details className="group relative md:hidden">
+          {/* Mobile menu: native <details>. Keyed on pathname so it closes on navigation. */}
+          <details key={pathname} className="group relative md:hidden">
             <summary
               aria-label="Open menu"
               className="flex size-9 cursor-pointer list-none items-center justify-center rounded-full border border-border bg-card [&::-webkit-details-marker]:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
