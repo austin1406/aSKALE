@@ -13,6 +13,7 @@ Guidance for Claude when working in this repo. Keep it short; update it whenever
 ## Brand (Askale's own site)
 - Direction: **local and warm** (chosen by Austin 2026-11-15). Paper/coffee/terracotta palette, Fraunces serif headlines, Instrument Sans body, Caveat for handwritten notes, Geist Mono only for small data labels.
 - Concept: the name reads "Ask · Scale". Use the ruler strip and the "Ask … then scale" idea sparingly; never the old cold/techy look.
+- The `apple-design` skill (`.claude/skills/`) guides motion, interaction and typography craft. Where it says to default to the system font, the brand fonts above win.
 - Client sites reuse the components but get their own tokens in `globals.css` and fonts in `layout.tsx`.
 
 ## Stack
