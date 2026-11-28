@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { signOut } from "@/app/admin/actions";
 import { StageSelect } from "@/app/admin/stage-select";
+import { SystemStatus } from "@/app/admin/system-status";
 import { Button } from "@/components/ui/button";
 import { requireAdmin } from "@/lib/admin-auth";
 import { LEAD_STAGES, STAGE_LABELS, type Lead } from "@/lib/leads";
@@ -37,7 +38,7 @@ async function Dashboard() {
     <>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl font-medium">Leads</h1>
+          <h1 className="font-display text-3xl font-medium">Admin</h1>
           <p className="mt-1 text-sm text-muted-foreground">Signed in as {email}</p>
         </div>
         <form action={signOut}>
@@ -47,7 +48,12 @@ async function Dashboard() {
         </form>
       </div>
 
-      <ul className="mt-6 flex flex-wrap gap-2 font-mono text-xs">
+      <div className="mt-10">
+        <SystemStatus />
+      </div>
+
+      <h2 className="font-display mt-12 text-2xl font-medium">Pipeline</h2>
+      <ul className="mt-4 flex flex-wrap gap-2 font-mono text-xs">
         {LEAD_STAGES.map((s) => (
           <li key={s} className="rounded-full border border-border bg-card px-3 py-1">
             {STAGE_LABELS[s]}: {counts[s]}
