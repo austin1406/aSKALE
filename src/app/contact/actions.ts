@@ -77,7 +77,13 @@ export async function submitContact(_prev: ContactState, formData: FormData): Pr
     }
     leadId = data.id;
   } else if (isProd) {
-    console.error("[contact] Supabase is not configured in production.");
+    // Deployed without database keys (e.g. a preview link). Say so instead of a fake "received".
+    console.error("[contact] Supabase is not configured; message not saved.");
+    return {
+      status: "error",
+      message: `This page can't send messages right now. Please email ${site.email}.`,
+      values,
+    };
   }
 
   // 5. Emails run in the background: an Inngest job when configured, otherwise after the response.
