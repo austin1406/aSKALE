@@ -1,0 +1,118 @@
+name: Database backup
+
+# Every night: dump the Supabase database, encrypt it, keep it for 30 days,
+# then restore that same backup into a throwaway Postgres and check every
+# table's row count and RLS policies match. If any step fails, GitHub emails
+# you. Setup and manual restore steps: docs/backups.md
+
+on:
+  schedule:
+    - cron: "17 9 * * *" # 09:17 UTC = 3:17 AM Central (4:17 AM in summer)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: db-backup
+  cancel-in-progress: false
+
+env:
+  PG_IMAGE: postgres:17
+  RETENTION_DAYS: 30
+
+jobs:
+  backup:
+    name: Back up database
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      artifact: ${{ steps.name.outputs.artifact }}
+    env:
+      DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check secrets are set
+        run: |
+          if [ -z "$DB_URL" ] || [ -z "$BACKUP_PASSPHRASE" ]; then
+            echo "::error::Add the SUPABASE_DB_URL and BACKUP_PASSPHRASE repository secrets (see docs/backups.md)."
+            exit 1
+          fi
+
+      - name: Dump database
+        run: |
+          mkdir -p out
+          docker run --rm -e DB_URL -v "$PWD:/work" -w /work -u "$(id -u):$(id -g)" "$PG_IMAGE" \
+            bash -euo pipefail -c '
+              psql "$DB_URL" -v ON_ERROR_STOP=1 -At -f scripts/backup/row-counts.sql > out/row-counts.txt
+              pg_dump "$DB_URL" --schema=public --format=custom --no-owner --file=out/database.dump
+            '
+          echo "Backed up $(grep -c '^table ' out/row-counts.txt) tables, $(du -h out/database.dump | cut -f1)."
+
+      - name: Encrypt backup
+        id: name
+        run: |
+          name="db-backup-$(date -u +%Y-%m-%d-%H%M)"
+          tar -C out -cf backup.tar database.dump row-counts.txt
+          gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
+            --symmetric --cipher-algo AES256 --output "$name.tar.gpg" backup.tar <<< "$BACKUP_PASSPHRASE"
+          rm -rf out backup.tar
+          echo "artifact=$name" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ${{ steps.name.outputs.artifact }}
+          path: ${{ steps.name.outputs.artifact }}.tar.gpg
+          retention-days: ${{ env.RETENTION_DAYS }}
+          if-no-files-found: error
+
+  restore-test:
+    name: Test restore
+    needs: backup
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+      TEST_DB_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.backup.outputs.artifact }}
+
+      - name: Decrypt backup
+        run: |
+          gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 \
+            --decrypt --output backup.tar "${{ needs.backup.outputs.artifact }}.tar.gpg" <<< "$BACKUP_PASSPHRASE"
+          mkdir -p restore && tar -C restore -xf backup.tar
+
+      - name: Restore into a throwaway database and compare
+        run: |
+          docker run --rm --network host -e TEST_DB_URL -v "$PWD:/work" -w /work "$PG_IMAGE" \
+            bash -euo pipefail -c '
+              psql "$TEST_DB_URL" -v ON_ERROR_STOP=1 -q -f scripts/backup/restore-test-prep.sql
+              scripts/backup/restore.sh restore/database.dump "$TEST_DB_URL"
+              psql "$TEST_DB_URL" -v ON_ERROR_STOP=1 -At -f scripts/backup/row-counts.sql > restore/restored-counts.txt
+            '
+          if diff -u restore/row-counts.txt restore/restored-counts.txt; then
+            echo "Restore test passed:"
+            cat restore/restored-counts.txt
+          else
+            echo "::error::Restored copy does not match the live database (diff above)."
+            exit 1
+          fi
