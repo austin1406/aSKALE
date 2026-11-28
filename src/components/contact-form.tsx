@@ -13,6 +13,20 @@ import type { ContactState } from "@/lib/contact-schema";
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
+/*
+ * Without an error callback, Turnstile throws visitor-side glitches (slow network,
+ * blockers, a tab left in the background) as uncaught errors, which Sentry reports
+ * as issues. Handling them here keeps Sentry for real bugs; the widget still retries
+ * on its own, and the server still rejects any submit without a valid token.
+ * Registered at module load so it exists before the widget renders.
+ */
+if (typeof window !== "undefined") {
+  (window as unknown as { onTurnstileError?: (code: string) => boolean }).onTurnstileError = (code) => {
+    console.warn(`[turnstile] challenge error ${code}; the widget will retry`);
+    return true;
+  };
+}
+
 export function ContactForm() {
   const [state, action, pending] = useActionState<ContactState, FormData>(submitContact, { status: "idle" });
   const err = state.status === "error" ? (state.fieldErrors ?? {}) : {};
@@ -67,7 +81,12 @@ export function ContactForm() {
       {turnstileSiteKey && (
         <>
           <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer />
-          <div className="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="light" />
+          <div
+            className="cf-turnstile"
+            data-sitekey={turnstileSiteKey}
+            data-theme="light"
+            data-error-callback="onTurnstileError"
+          />
         </>
       )}
 
